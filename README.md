@@ -3,6 +3,8 @@
 ## Features
 
 - Product Listing Screen
+- Product Searching
+- Add to Cart functionality
 - Detail Page Screen
 - Cart Page Screen
 
