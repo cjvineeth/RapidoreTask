@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph_main"
+    app:startDestination="@id/productHomeFragment">
+
+    <fragment
+        android:id="@+id/productHomeFragment"
+        android:name="com.app.rapidore.presentation.productlist.ProductHomeFragment"
+        android:label="Product List"
+        tools:layout="@layout/fragment_product_home" >
+        <action
+            android:id="@+id/action_productHomeFragment_to_itemDesctriptionFragment"
+            app:destination="@id/itemDesctriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemDesctriptionFragment"
+        android:name="com.app.rapidore.presentation.item.ItemDescriptionFragment"
+        android:label="fragment_item_desctription"
+        tools:layout="@layout/fragment_item_desctription" >
+        <argument android:name="productId" app:argType="integer" />
+        <action
+            android:id="@+id/action_itemDesctriptionFragment_to_fragmentCart"
+            app:destination="@id/fragmentCart" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentCart"
+        android:name="com.app.rapidore.presentation.cart.FragmentCart"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+</navigation>

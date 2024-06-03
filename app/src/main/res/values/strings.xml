@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Rapidore</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="product_list">Product List</string>
+    <string name="item_description">Product Details</string>
+    <string name="added_products">Added Products</string>
+    <string name="delete">Delete</string>
+</resources>
