@@ -82,7 +82,7 @@ class ProductRepoImpl @Inject constructor(
             val response = api.insertCart(
                 AddToCartRequest(
                     "2020-02-03",
-                    listOf(Product(product?.id, 1)),
+                    listOf(Product(product?.id?:0, 1)),
                     userId = 1
                 )
             )

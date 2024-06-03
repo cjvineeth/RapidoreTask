@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.rapidore.common.Resource
 import com.app.rapidore.domain.model.CartModel
+import com.app.rapidore.domain.model.ProductModel
 import com.app.rapidore.domain.usecase.CartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -27,10 +28,10 @@ class CartViewModel @Inject constructor(private val useCase: CartUseCase) : View
     val error: LiveData<String>
         get() = _error
 
-    private val _cartList: MutableLiveData<CartModel> by lazy {
-        MutableLiveData<CartModel>()
+    private val _cartList: MutableLiveData<MutableList<ProductModel>> by lazy {
+        MutableLiveData<MutableList<ProductModel>>()
     }
-    val cartList: LiveData<CartModel>
+    val cartList: LiveData<MutableList<ProductModel>>
         get() = _cartList
 
 

@@ -14,13 +14,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ProductDao {
 
-    @Query("select * From ProductDBModel")
+    @Query("select * From tbl_product")
      fun fetchProducts(): Flow<MutableList<ProductDBModel>>
 
-    @Query("DELETE FROM ProductDBModel")
+    @Query("DELETE FROM tbl_product")
       fun deleteProduct()
 
-    @Query("select * From ProductDBModel WHERE id=:productId")
+    @Query("select * From tbl_product WHERE id=:productId")
     fun fetchProduct(productId:Int): Flow<ProductDBModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

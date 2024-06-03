@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity
+@Entity("tbl_product")
 data class ProductDBModel(
     @PrimaryKey
     var id: Int,

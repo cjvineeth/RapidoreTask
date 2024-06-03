@@ -1,9 +1,11 @@
 package com.app.rapidore.data.repository
 
+import android.util.Log
 import androidx.room.withTransaction
 import com.app.rapidore.common.Resource
 import com.app.rapidore.data.db.ProductDatabase
 import com.app.rapidore.data.db.model.CartDBModel
+import com.app.rapidore.data.db.model.ProductDBModel
 import com.app.rapidore.data.db.model.toCartModel
 import com.app.rapidore.data.db.model.toProductModel
 import com.app.rapidore.data.remote.ProductsApi
@@ -15,6 +17,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class CartRepoImpl  @Inject constructor(
@@ -23,25 +26,31 @@ class CartRepoImpl  @Inject constructor(
 ) : CartRepo {
     private val dao = db.productDao
 
-    override suspend fun getAllCarts(): Flow<Resource<CartModel>> {
+    override suspend fun getAllCarts(): Flow<Resource<List<ProductDBModel>?>> {
         return flow {
             try {
                 val details = api.getCarts()
                 db.withTransaction {
-                    dao.deleteProduct()
                     val details = details.mapIndexed { index, item ->
-                        item.toDbModel(details[index].id?:0)
+                        item.toDbModel(details[index].id ?: 0)
                     }
                     dao.insertAllCarts(details)
                 }
-                delay(1000)
-                val list=dao.fetchCartUser(1).first()
-                emit(Resource.Success(list.toCartModel()))
+
+                val list = dao.fetchCartUser(1).first()
+                val productList = mutableListOf<ProductDBModel>()
+
+
+              list.toCartModel().products.forEach { product ->
+                  productList.add( dao.fetchProduct(product.productId).first())
+                }
+
+
+                emit(Resource.Success(productList))
 
             } catch (e: Exception) {
                 emit(Resource.Error(e.message.toString()))
             }
         }
-
     }
 }

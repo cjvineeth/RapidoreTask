@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Product(
     @SerializedName("productId")
-    val productId: Int? = 0,
+    val productId: Int = 0,
     @SerializedName("quantity")
     val quantity: Int? = 0
 )

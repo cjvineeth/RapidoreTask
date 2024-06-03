@@ -13,6 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FragmentCart : BaseFragment<FragmentCartBinding>() {
 
+       private var totalSum:Double=0.0
+
     private var mAdapter: CartAdapter?=null
     private val viewModel: CartViewModel by viewModels()
     override fun getLayout() = R.layout.fragment_cart
@@ -26,25 +28,31 @@ class FragmentCart : BaseFragment<FragmentCartBinding>() {
     }
 
     private fun observe() {
+        viewModel.cartList.observe(viewLifecycleOwner) { list ->
+            totalSum=list.sumOf { it.price.toDouble() }
 
+            list.sumOf { it.price.toDouble() }
+            binding.tvTotalPrice.text="₹ "+list.sumOf { it.price.toDouble() }.toString()
+            mAdapter = CartAdapter(list,totalSum,object :CartAdapter.OnSumUpDateListener{
+                override fun onInCrease(sum: Double) {
 
-        viewModel.cartList.observe(viewLifecycleOwner) {
+                }
 
-          /*  mAdapter=CartAdapter(object :CartAdapter.ItemClickListener{},it) { product ->
+                override fun onDecrease(sum: Double) {
+                }
 
-                findNavController().navigateSafe(ProductHomeFragmentDirections.actionProductHomeFragmentToItemDesctriptionFragment(product.id?:0))
-            }*/
+            })
             binding.rvCartItems.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = mAdapter
             }
-
         }
-
     }
 
     private fun setup() {
         viewModel.getCarts()
+
+
     }
 
 

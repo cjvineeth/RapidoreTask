@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CartRepo {
 
-    suspend fun getAllCarts(): Flow<Resource<CartModel>>
+    suspend fun getAllCarts():Flow<Resource<List<ProductDBModel>?>>
 }
