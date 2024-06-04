@@ -9,9 +9,7 @@
 - Cart Page Screen
 
 ## API Reference
-```https://fakestoreapi.com/
-
-```
+```https://fakestoreapi.com/```
 
 ## MVVM Clean Architecture
 
