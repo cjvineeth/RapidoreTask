@@ -12,6 +12,9 @@ import androidx.navigation.fragment.navArgs
 import com.app.rapidore.R
 import com.app.rapidore.common.NavigationExtensions.navigateSafe
 import com.app.rapidore.common.addAsMenuHost
+import com.app.rapidore.common.toast
+import com.app.rapidore.connectivity.base.ConnectivityProvider
+import com.app.rapidore.connectivity.hasInternet
 import com.app.rapidore.databinding.FragmentItemDesctriptionBinding
 import com.app.rapidore.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +29,13 @@ class ItemDescriptionFragment : BaseFragment<FragmentItemDesctriptionBinding>(),
     override fun isBackButtonEnabled() = true
 
     override fun screenTitle() = getString(R.string.item_description)
+    override fun onConnectionStateChange(state: ConnectivityProvider.NetworkState) {
+       if(!state.hasInternet()){
+           getString(R.string.your_internetconnection_not_stable).toast(requireContext())
+       }
+
+
+    }
 
 
     private val viewModel: ItemDescriptionViewModel by viewModels()
@@ -52,7 +62,13 @@ class ItemDescriptionFragment : BaseFragment<FragmentItemDesctriptionBinding>(),
     private fun setUp() {
         viewModel.getProducts(args.productId)
         binding.addToCartButton.setOnClickListener {
-            viewModel.addToCart()
+
+            if(provider.getNetworkState().hasInternet()){
+                viewModel.addToCart()
+            }else{
+                getString(R.string.no_internet_connection).toast(requireContext())
+            }
+
         }
     }
 
@@ -68,7 +84,6 @@ class ItemDescriptionFragment : BaseFragment<FragmentItemDesctriptionBinding>(),
             }
             else -> return false
         }
-        return true
     }
 
 }

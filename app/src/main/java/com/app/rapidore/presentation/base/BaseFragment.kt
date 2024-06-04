@@ -55,6 +55,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment(),
     override fun onStart() {
         super.onStart()
 
+
         _provider.addListener(this)
         if (hideActionBar()) {
             setHasOptionsMenu(false)
@@ -75,6 +76,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment(),
 
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -115,7 +117,11 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment(),
     protected abstract fun isBackButtonEnabled(): Boolean
     protected abstract fun screenTitle(): String
 
+    protected abstract fun onConnectionStateChange(state: ConnectivityProvider.NetworkState)
 
-    override fun onStateChange(state: ConnectivityProvider.NetworkState) {}
+    override fun onStateChange(state: ConnectivityProvider.NetworkState) {
+        onConnectionStateChange(state)
+
+    }
 
 }

@@ -14,6 +14,7 @@ import com.app.rapidore.R
 import com.app.rapidore.common.NavigationExtensions.navigateSafe
 import com.app.rapidore.common.addAsMenuHost
 import com.app.rapidore.common.toast
+import com.app.rapidore.connectivity.base.ConnectivityProvider
 import com.app.rapidore.databinding.FragmentProductHomeBinding
 import com.app.rapidore.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,9 @@ class ProductHomeFragment : BaseFragment<FragmentProductHomeBinding>(),MenuProvi
     override fun hideActionBar() = false
     override fun isBackButtonEnabled() = false
     override fun screenTitle()= getString(R.string.product_list)
+    override fun onConnectionStateChange(state: ConnectivityProvider.NetworkState) {
+
+    }
 
     private val viewModel: ProductViewModel by viewModels ()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,6 +39,9 @@ class ProductHomeFragment : BaseFragment<FragmentProductHomeBinding>(),MenuProvi
         setup()
         observe()
     }
+
+
+
 
     private fun observe() {
         viewModel.apodList.observe(viewLifecycleOwner){

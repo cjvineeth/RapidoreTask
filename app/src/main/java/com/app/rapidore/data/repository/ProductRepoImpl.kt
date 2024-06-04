@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
+@Suppress("NAME_SHADOWING")
 class ProductRepoImpl @Inject constructor(
     private val api: ProductsApi,
     private val db: ProductDatabase
